@@ -40,7 +40,7 @@ class Controller {
 	
 		// todo: сделать обработку иключения, если в access_list не найден action
 		if(!$method) {
-			echo "Action $action не найден в access_list класса " . get_class($this);
+			header("Location: /notes");
 			return null;
 		}
 		

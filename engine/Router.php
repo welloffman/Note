@@ -42,8 +42,8 @@ class Router {
 		$uri_data = preg_split('/\//', $_SERVER['REQUEST_URI'], 3, PREG_SPLIT_NO_EMPTY);
 		$count = count($uri_data);
 
-		$data =  array();
-		$data["area"] = ($count > 0 && !empty($data["area"])) ? Request::getVar($uri_data[0]) : "notes";
+		$data = array();
+		$data["area"] = $count > 0 ? Request::getVar($uri_data[0]) : "notes";
 		$data["action"] = $count > 1 ? Request::getVar($uri_data[1]) : "";
 		return $data; 
 	}
