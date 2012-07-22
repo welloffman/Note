@@ -241,7 +241,7 @@ class ModelMapper {
 	 * @param String $query - строка запроса в базу
 	 * @return resource - дескриптор результата запроса или BOOLEAN в зависимости от запроса и результата
 	 */
-	private function query($query) { 
+	private function query($query) { //echo $query; exit;
 		$this->dbConnect();
 		if(!$result = mysql_query($query)) {
 			echo "Ошибка в запросе: " . mysql_error() . "\n" . $query;
