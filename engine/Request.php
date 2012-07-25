@@ -14,17 +14,6 @@ class Request {
 	public static $uid = null;
 	
 	/**
-	 * Возвращает строку с указанием действия (класс и метод для выполнения)
-	 * @return String 
-	 */
-	public static function getPostAction() { 
-		if(array_key_exists("area", $_POST) && array_key_exists("action", $_POST)) {
-			return trim(strip_tags($_POST["area"])) . "__" . trim(strip_tags($_POST["action"]));
-		}
-		else return "";
-	}
-	
-	/**
 	 * Возвращает post параметр по ключу
 	 * @param String $key
 	 * @return String или null при отсутствии ключа 

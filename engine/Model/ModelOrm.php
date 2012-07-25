@@ -51,7 +51,8 @@ class ModelOrm {
 	 */
 	public function save() {
 		$mapper = new ModelMapper();
-		$mapper->create($this);
+        if($this->getId()) $mapper->update($this);
+        else $mapper->create($this);
 	}
 	
 	/**

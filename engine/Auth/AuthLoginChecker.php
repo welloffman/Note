@@ -18,7 +18,7 @@ class AuthLoginChecker implements AuthChecker {
 		$pass = Request::getPost("passwd");
 
 		$user = new ModelUser();
-		$user->getByLogin($login);
+		$user->initByLogin($login);
 		
 		if($user->getPassword() && strcmp($user->getPassword(), $pass) == 0) {
 			$access = true;

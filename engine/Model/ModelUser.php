@@ -10,7 +10,7 @@ class ModelUser extends ModelOrm {
 	protected $password;
 	protected $created;
 	
-	public function getByLogin($login) {
+	public function initByLogin($login) {
 		$mapper = new ModelMapper();
 		$result = $mapper->find( "ModelUser", array("login"=>$login), array("options"=>"LIMIT 1") );
 		
