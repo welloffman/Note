@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<root>
-    <db>
-		<host>localhost</host>
-		<user>note</user>
-		<password>zras2ACW2BSep2A5</password>
-		<dbname>note</dbname>
-	</db>
-</root>
