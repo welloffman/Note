@@ -90,7 +90,7 @@ function Note(data) {
 				content = $.parseJSON(result);
 
 				var content_row = $("<div class='h'></div>").html(content);
-				content_row.off("click").on("click", function() {
+				content_row.off("dblclick").on("dblclick", function() {
 					onEditMode();
 				});
 				

@@ -5,7 +5,7 @@
  *
  * Зависимость: требуется класс DebugLog производящий запись строки в лог-файл
  */
-class OrmException extends Exception {
+class ExceptionOrm extends Exception {
 	/**
 	 * Описание ошибки
 	 * @var String

@@ -36,9 +36,9 @@ class ModelMapper {
         $table_name = strtolower( str_replace("Model", "", get_class($obj)) );
 
         try {
-            if(!isset($this->map[$table_name])) throw new OrmException("Класс" . get_class($obj) . "не найден в маппере!");
+            if(!isset($this->map[$table_name])) throw new ExceptionOrm("Класс" . get_class($obj) . "не найден в маппере!");
         }
-        catch(OrmException $e) {
+        catch(ExceptionOrm $e) {
             $e->toLog();
             return "";
         }
@@ -77,10 +77,10 @@ class ModelMapper {
         $table_name = strtolower( str_replace("Model", "", get_class($obj)) );
 
         try {
-            if(!isset($this->map[$table_name])) throw new OrmException("Класс" . get_class($obj) . "не найден в маппере!");
-            if(!$obj->getId()) throw new OrmException("Не передан id при обновлении записи!");
+            if(!isset($this->map[$table_name])) throw new ExceptionOrm("Класс" . get_class($obj) . "не найден в маппере!");
+            if(!$obj->getId()) throw new ExceptionOrm("Не передан id при обновлении записи!");
         }
-        catch(OrmException $e) {
+        catch(ExceptionOrm $e) {
             $e->toLog();
             return "";
         }
@@ -114,10 +114,10 @@ class ModelMapper {
         $table_name = strtolower( str_replace("Model", "", get_class($obj)) );
 
         try {
-            if(!isset($this->map[$table_name])) throw new OrmException("Класс" . get_class($obj) . "не найден в маппере!");
-            if(!$obj->getId()) throw new OrmException("Не передан id при обновлении записи!");
+            if(!isset($this->map[$table_name])) throw new ExceptionOrm("Класс" . get_class($obj) . "не найден в маппере!");
+            if(!$obj->getId()) throw new ExceptionOrm("Не передан id при обновлении записи!");
         }
-        catch(OrmException $e) {
+        catch(ExceptionOrm $e) {
             $e->toLog();
             return "";
         }
@@ -140,10 +140,10 @@ class ModelMapper {
         $table_name = strtolower(str_replace("Model", "", $class_name));
         
         try {
-            if(!isset($this->map[$table_name])) throw new OrmException("Класс $class_name не найден в маппере!");
-            if(!is_array($params) || count($params) == 0) throw new OrmException("Не переданы обязательные параметры для выборки объектов из базы!");
+            if(!isset($this->map[$table_name])) throw new ExceptionOrm("Класс $class_name не найден в маппере!");
+            if(!is_array($params) || count($params) == 0) throw new ExceptionOrm("Не переданы обязательные параметры для выборки объектов из базы!");
         }
-        catch(OrmException $e) {
+        catch(ExceptionOrm $e) {
             $e->toLog();
             return "";
         }
@@ -200,9 +200,9 @@ class ModelMapper {
         $table_name = strtolower( str_replace("Model", "", $class_name) );
         
         try {
-            if(!isset($this->map[$table_name])) throw new OrmException("Класс $class_name не найден в маппере!");
+            if(!isset($this->map[$table_name])) throw new ExceptionOrm("Класс $class_name не найден в маппере!");
         }
-        catch(OrmException $e) {
+        catch(ExceptionOrm $e) {
             $e->toLog();
             return "";
         }
