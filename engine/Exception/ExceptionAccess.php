@@ -11,7 +11,7 @@ class ExceptionAccess extends Exception {
 	 * Описание ошибки
 	 * @var String
 	 */
-	private $message;
+	protected $message;
 
 	/**
 	 * @param String $errTitle - описание ошибки

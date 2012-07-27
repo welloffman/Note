@@ -20,8 +20,8 @@ class AuthReqChecker implements AuthChecker {
 
 		if(!empty($m_login) && strcmp($m_login, $hash) == 0) $access = true;
 		else {
-			setcookie("login", "", time() - 1);
-			setcookie("hash", "", time() - 1);
+			setcookie("login", "", time() - 1, "/");
+			setcookie("hash", "", time() - 1, "/");
 		}
 		
 		return $access;

@@ -83,7 +83,7 @@ class ModelDir extends ModelOrm {
 	public function initById($dir_id) {		
 		try {
 			if(!$dir_id)
-				throw new AccessException("ModelDir::initById - не передан идентификатор раздела!");
+				throw new ExceptionAccess("ModelDir::initById - не передан идентификатор раздела!");
 			
 			$mapper = new ModelMapper();
 			$result = $mapper->find( "ModelDir", array('id'=>$dir_id) );

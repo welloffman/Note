@@ -27,7 +27,7 @@ class ControllerAuth extends Controller {
 	public function login() {
 		$a = new Auth();
 		if($a->getAccess()) header("Location: /notes");
-		else header("Location: /auth/login");
+		else header("Location: /auth");
 	}
 	
 	public function logout() {

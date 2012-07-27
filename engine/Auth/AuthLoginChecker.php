@@ -20,7 +20,7 @@ class AuthLoginChecker implements AuthChecker {
 		$user = new ModelUser();
 		$user->initByLogin($login);
 		
-		if($user->getPassword() && strcmp($user->getPassword(), $pass) == 0) {
+		if($user->getPassword() && strcmp($user->getPassword(), md5(Config::get("salt") . $pass)) == 0) {
 			$access = true;
 
 			$hash = Auth::generateCode(20);

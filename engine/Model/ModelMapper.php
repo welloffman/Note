@@ -181,7 +181,7 @@ class ModelMapper {
     private function dbConnect() {
         if(empty($this->pdo)) {
             try {
-                $this->pdo = new PDO('mysql:host=localhost;dbname=note','note','zras2ACW2BSep2A5');
+                $this->pdo = new PDO('mysql:host=' . Config::get("dbhost") . ';dbname=' . Config::get("dbname"), Config::get("dbuser"), Config::get("dbpass"));
                 $this->pdo->exec('SET NAMES utf8');
             }
                 catch(PDOException $e) {

@@ -10,7 +10,7 @@ class ExceptionOrm extends Exception {
 	 * Описание ошибки
 	 * @var String
 	 */
-	private $errTitle;
+	protected $errTitle;
 
 	/**
 	 * @param String $errTitle - описание ошибки

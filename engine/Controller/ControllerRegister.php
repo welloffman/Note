@@ -42,7 +42,7 @@ class ControllerRegister extends Controller {
 		
 		$user = new ModelUser();
 		$user->setLogin($login);
-		$user->setPassword($password);
+		$user->setPassword(md5(Config::get("salt") . $password));
 		$user->setCreated(date("Y-m-d H:i:s"));
 		$user->save();
 		
