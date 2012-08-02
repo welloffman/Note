@@ -19,7 +19,7 @@ class ModelMapper {
      * @var Array Карта объектов в базе
      */
     private $map = array(
-        'user' => array('id', 'login', 'password', 'created'),
+        'user' => array('id', 'login', 'password', 'created', 'email'),
         'dir' => array('id', 'user_id', 'path', 'title'),
         'note' => array('id', 'dir_id', 'title', 'content')
     );

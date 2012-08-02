@@ -12,6 +12,9 @@
 				<ul class="nav">
 					<li><a href="/notes">Записи</a></li>
 				</ul>
+				<ul class="nav">
+					<li><a href="/settings">Настройки</a></li>
+				</ul>
 				<ul class="nav pull-right">
 					<li><a href="/auth/logout">Выход</a></li>
 				</ul>

@@ -33,8 +33,8 @@ class ControllerRegister extends Controller {
 		
 		if(!$login || !$password) return array("error"=>"invalid_data");
 		
-		if(!$this->validLogin($login)) return array("error"=>"login");
-		if(!$this->validPass($password)) return array("error"=>"pass");
+		if(!ModelUser::validLogin($login)) return array("error"=>"login");
+		if(!ModelUser::validPass($password)) return array("error"=>"pass");
 		
 		$mapper = new ModelMapper();
 		$user_exists = $mapper->find("ModelUser", array('login'=>$login));
@@ -63,26 +63,6 @@ class ControllerRegister extends Controller {
 		setcookie('hash', $hash, $time, '/');
 	
 		return array("result"=>"ok");
-	}
-	
-	/**
-	 * Проверка допустимости логина
-	 * @param String $login
-	 * @return boolean 
-	 */
-	private function validLogin($login) {
-		if(strlen($login) > 3 && strlen($login) <= 50 && preg_match("~^[\w@\.]+$~", $login)) return true;
-		else return false;
-	}
-	
-	/**
-	 * Проверка допустимости пароля
-	 * @param String $pass
-	 * @return boolean 
-	 */
-	private function validPass($pass) {
-		if(strlen($pass) >= 6 && strlen($pass) <= 20 && preg_match("~^[\w@\.\-\+]+$~", $pass)) return true;
-		else return false;
 	}
 }
 

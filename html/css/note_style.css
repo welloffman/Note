@@ -117,3 +117,14 @@
 	display: none;
 	margin-top: 15px;
 }
+
+.leg_header {
+	
+}
+
+.alert {
+	display: inline-block;
+	position: absolute;
+	top: 45px;
+	left: 250px;
+}

@@ -25,9 +25,9 @@ class AuthLoginChecker implements AuthChecker {
 
 			$hash = Auth::generateCode(20);
 			$session_name = $user->getId() . "_" . $login . "-" . rand(0, 1000);
-			Auth::$memcache->set($session_name, $hash, MEMCACHE_COMPRESSED, 60*60*24);
+			Auth::$memcache->set($session_name, $hash, MEMCACHE_COMPRESSED, 60*60*24*30);
 
-			$time = time()+60*60*24;
+			$time = time()+60*60*24*30;
 			setcookie('login', $session_name, $time, '/');
 			setcookie('hash', $hash, $time, '/');
 		}
