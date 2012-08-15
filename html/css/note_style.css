@@ -1,6 +1,118 @@
-#header {
-	height: 50px;
+html, body, ul, li {
+	font-family: tahoma, Arial, sans-serif;
+	padding: 0;
+	margin: 0;
 }
+
+body {
+	text-align: center;
+}
+
+#header {
+	height: 58px;
+	background-image: url(/img/top_fon.jpg);
+	position: relative;
+}
+
+#nav_menu {
+	text-align: center;
+	height: 100%;
+}
+#nav_menu li {
+	display: inline-block;
+	height: 100%;
+}
+#nav_menu a {
+	display: block;
+	height: 100%;
+	padding: 25px 30px 0 30px;
+	font-size: 16pt;
+	color: white;
+	text-decoration: none;
+	
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+#nav_menu a:hover {
+	background-color: black;
+}
+
+#line {
+	background-image: url(/img/str.png);
+	height: 16px;
+	width: 100%;
+	position: absolute;
+	top: 6px;
+	left: 0;
+}
+
+#container {
+	text-align: left;
+	width: 1170px;
+	position: relative;
+	display: inline-block;
+}
+
+#sidebar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 45px;
+}
+
+#panel li {
+	cursor: pointer;
+	list-style: none;
+	height: 61px;
+	margin: 5px 0;
+	background-position: 0 0;
+}
+#panel li:hover {
+	background-position: 0 122px;
+}
+#panel li:active {
+	background-position: 0 61px;
+}
+
+#panel .b_add_dir {
+	background-image: url(/img/but_add_dir.png);
+	height: 91px;
+}
+#panel .b_add_note {
+	background-image: url(/img/but_add_note.png);
+	height: 91px;
+}
+#panel .b_add_dir:hover, #panel .b_add_note:hover {
+	background-position: 0 182px;
+}
+#panel .b_add_dir:active, #panel .b_add_note:active {
+	background-position: 0 91px;
+}
+#panel .b_order {
+	background-image: url(/img/but_sort.png);
+	margin: 25px 0;
+}
+#panel .b_edit_title {
+	background-image: url(/img/but_edit_title.png);
+}
+#panel .b_copy {
+	background-image: url(/img/but_copy.png);
+}
+#panel .b_cut {
+	background-image: url(/img/but_cut.png);
+}
+#panel .b_paste {
+	background-image: url(/img/but_paste.png);
+}
+#panel .b_delete {
+	background-image: url(/img/but_delete.png);
+	margin-top: 25px;
+}
+
+
+
+
 
 #blocks {
 	display: none;
