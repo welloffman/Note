@@ -156,6 +156,7 @@ function NotesPage(data) {
 			$("#blocks").append( $("#controls_but") );
 
 			resetEditor();
+			$("#dir_title").html(data.dir_title);
 			initBreadcrumbs();
 			initDirs();
 			initNotes();
@@ -271,6 +272,7 @@ function NotesPage(data) {
 	}
 
 	initBreadcrumbs();
+	$("#dir_title").html(data.dir_title);
 	initTabs();
 	initDirs();
 	initNotes();

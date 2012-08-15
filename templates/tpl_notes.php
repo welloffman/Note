@@ -12,7 +12,17 @@
 		</ul>
 	</div>
 	<div id="content">
+		<div id="title_begin">
+			<div>
+				<p id="dir_title"></p><span id="title_end"></span>
+			</div>
+		</div>
 		
+		<ul class="breadcrumb"></ul>
+		
+		<table id="explorer">
+			<tbody></tbody>
+		</table>
 	</div>
 	
 	
