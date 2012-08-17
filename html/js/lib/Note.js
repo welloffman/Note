@@ -22,6 +22,7 @@ function Note(data) {
 		row.addClass("note_row");
 		row.attr("n_id", id);
 		row.find(".row_title").append("<p>" + title + "</p>");
+		row.find(".sel_check").addClass("note_check");
 		$("#explorer tbody").append(row);
 	}
 
@@ -49,6 +50,8 @@ function Note(data) {
 		
 		$(row).find(".sel_check").off('click').on('click', function(event) {
 			selected = !selected;
+			if(selected) $(this).append($("<div />", {"class": "jackdaw"}));
+			else $(this).empty();
 			event.stopPropagation();
 		});
 	}

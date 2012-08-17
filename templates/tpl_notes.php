@@ -20,9 +20,11 @@
 		
 		<ul class="breadcrumb"></ul>
 		
-		<table id="explorer">
-			<tbody></tbody>
-		</table>
+		<div class="table_container">
+			<table id="explorer">
+				<tbody></tbody>
+			</table>
+		</div>
 	</div>
 	
 	
@@ -46,10 +48,10 @@
 	<!-- Шаблон строки раздела или записи -->
 	<table id="tpl_explorer_row">
 		<tr>
-			<td class="check_cell">
-				<input type="checkbox" class="sel_check" value="" />
-			</td>
 			<td class="row_title"></td>
+			<td class="check_cell">
+				<div class="sel_check"></div>
+			</td>
 		</tr>
 	</table>
 </div>

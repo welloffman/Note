@@ -33,7 +33,6 @@ class ControllerNotes extends Controller {
 		$this->type_template = "fullPage";
 		$this->template[] = "tpl_navbar_auth.php";
 		$this->template[] = "tpl_notes.php";
-		$this->template[] = "tpl_modal_window.php";
 		
 		return $dirs_data;
 	}
