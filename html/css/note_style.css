@@ -151,7 +151,7 @@ body {
 	font-size: 16pt;
 	color: #2c3f08;
 	margin: 0;
-	padding-top: 5px;
+	padding-top: 8px;
 	display: inline-block;
 	vertical-align: top;
 	
@@ -164,7 +164,8 @@ body {
 .breadcrumb {
 	margin: 30px 20px 0 20px;
 	padding: 5px 15px;
-	background-color: #deeeff;
+	background-color: #f7f7f7;
+	border: 1px solid #cfd0d2;
 	
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -173,11 +174,14 @@ body {
 .breadcrumb li {
 	display: inline-block;
 	font-size: 10pt;
-	color: #0e90d2;
+	color: #333;
 }
 .breadcrumb a {
 	text-decoration: none;
 	color: #0e90d2;
+}
+.breadcrumb a:hover {
+	text-decoration: underline;
 }
 
 .divider {
@@ -246,16 +250,31 @@ body {
 	background-image: url(/img/jackdaw.png);
 }
 
-#blocks {
+#blocks, #tab_add_note, #tab_add_dir, #json_block {
 	display: none;
 }
-
-#json_block {
-	display: none;
-}
-
-
 
 #mce, #mce2 {
 	width: 100%;
 }
+
+fieldset {
+  border: none;
+  padding: 10px 20px;
+}
+
+.h {
+	padding-top: 10px;
+	margin-top: 10px;
+	border-top: 1px solid gray;
+	cursor: default;
+	display: none;
+}
+
+#explorer tr.opened {
+	background-color: white;
+}
+
+/*#panel .b_edit_title, #panel .b_copy, #panel .b_cut, #panel .b_paste, #panel .b_delete {
+	margin-left: 45px;
+}*/
