@@ -6,10 +6,49 @@ function NotesPage(data) {
 	var ob = this;
 
 	var breadcrumbs = null;
-	var tabs = new TabsIterator();
+	
 	var dirs = new ElemIterator();
 	var notes = new ElemIterator();
+	
+	/**
+	 * Обновление содержимого страницы
+	 * @param {Object} el ДОМ элемент по оторому кликнули (нужен для совместимости с интерфейсом функции навешивания событий)
+	 * @param {Number} dir_id Ид раздела
+	 */
+	ob.refresh = function(el, dir_id) {
+		if(dir_id == undefined || dir_id == "") return;
 
+		var params = {
+			dir_id: dir_id
+		};
+
+		$.post("/notes/refreshDir", params, function(result) {
+			
+			// todo: здесь этому не место
+			/*$(".b_edit_title").css("margin-left", "");
+			$(".b_copy").css("margin-left", "");
+			$(".b_cut").css("margin-left", "");
+			$(".b_paste").css("margin-left", "");
+			$(".b_delete").css("margin-left", "");*/
+			
+			data = $.parseJSON(result);
+
+			$("#blocks").append( $("#controls_but") );
+
+			resetEditor();
+			$("#dir_title").html(data.dir_title);
+			initBreadcrumbs();
+			initDirs();
+			initNotes();
+			initListToAddDir(data.crumbs);
+		});
+	}
+	
+	var add_dir = new AddDir( $(".b_add_dir"), dirs );
+	add_dir.setRefresh(ob.refresh);
+	var add_note = new AddNote( $(".b_add_note"), notes );
+	add_note.setRefresh(ob.refresh);
+	
 	var modal = new Modal();
 	
 	var copy_cut = new CopyCut();
@@ -22,93 +61,8 @@ function NotesPage(data) {
 		breadcrumbs = new Breadcrumbs(data.crumbs, ob);
 		breadcrumbs.build();
 		breadcrumbs.bindActions(function(id) {
-			ob.refresh(id);
-			tabs.getById("tab_list").select();
+			ob.refresh(null, id);
 		});
-	}
-
-	/**
-	 * Инициализация табов
-	 */
-	function initTabs() {
-	   /**
-		* Обработка таба "записи"
-		*/
-		var tabNotes = function() {
-			resetEditor();
-			initDirs();
-			initNotes();
-		}
-
-		/**
-		* Обработка таба "Добавить раздел"
-		*/
-		var tabAddDir = function() {
-			$("#tab_add_dir input[name='dir_name']").val("");
-			
-			// Кнопка добавить раздел
-			$("#create_dir").off('click').on('click', function() {
-				var data = {
-					parent_dir: $("#parent_dir_name").val(),
-					title: $("#tab_add_dir input[name='dir_name']").val()
-				};
-
-				$.post("/notes/addDir", data, function(result) {
-					var resp = $.parseJSON(result);
-
-					// Обновляем содержимое директории
-					ob.refresh(resp.dir_id);
-
-					// Переходим в таб "Просмотр записей"
-					tabs.getById("tab_list").select();
-					tabNotes();
-				});
-			});
-		}
-
-		/**
-		* Обработка таба "Добавить записи"
-		*/
-		var tabAddNote = function() {
-			$("#tab_add_note input[name='note_name']").val("");
-			resetEditor();
-			tinyMCE.execCommand("mceAddControl", false, "mce2");
-
-			// Кнопка добавить запись
-			$("#save_note_button").off('click').on('click', function() {
-				tinymce.activeEditor.save();
-				var params = {
-					parent_dir: $("#parent_dir_name2").val(),
-					title: $("#tab_add_note input[name='note_name']").val(),
-					content: $("#mce2").val()
-				};
-
-				$.post("/notes/addNote", params, function(result) {
-					var resp = $.parseJSON(result);
-
-					// Обновляем содержимое директории
-					ob.refresh(resp.dir_id);
-
-					// Переходим в таб "Просмотр записей"
-					var tab = tabs.getById("tab_list");
-					tab.select();
-					tabNotes();
-				});
-			});
-		}
-
-		// Связываем формируем параметры для инициализации табов
-		var items = [
-			{func: tabNotes, element: $('.nav-tabs a[href="#tab_notes"]').parent()},
-			{func: tabAddDir, element: $('.nav-tabs a[href="#tab_add_dir"]').parent()},
-			{func: tabAddNote, element: $('.nav-tabs a[href="#tab_add_note"]').parent()}
-		];
-
-		// Инициализируем табы
-		for(var i in items) {
-			var t = new Tab(items[i].element, items[i].func);
-			tabs.add(t);
-		}
 	}
 
 	/**
@@ -116,13 +70,14 @@ function NotesPage(data) {
 	 */
 	function initDirs() {
 		$("#explorer tbody").empty();
-		dirs.clear();
-
-		for(var i in data.dirs_data) {
-			var d = new Dir(data.dirs_data[i]);
-			d.build();
-			d.bindActions(ob.refresh);
-			dirs.add(d);
+		dirs.init("Dir", data.dirs_data);
+		
+		dirs.reset();
+		var dir = dirs.get();
+		while(dir) {
+			dir.bindAction(ob.refresh, ".row_title", dir.id);
+			dir.bindAction(selectCheckbox, ".sel_check", dir);
+			dir = dirs.get();
 		}
 	}
 
@@ -130,37 +85,14 @@ function NotesPage(data) {
 	 * Инициализация записей
 	 */
 	function initNotes() {
-		notes.clear();
-
-		for(var i in data.notes_data) {
-			var n = new Note(data.notes_data[i]);
-			n.build();
-			n.bindAction();
-			notes.add(n);
+		notes.init("Note", data.notes_data);
+		
+		notes.reset();
+		var note = notes.get();
+		while(note) {
+			note.bindAction(selectCheckbox, ".sel_check", note);
+			note = dirs.get();
 		}
-	}
-
-	/**
-	 * Обновление содержимого страницы
-	 */
-	ob.refresh = function(dir_id) {
-		if(dir_id == undefined || dir_id == "") return;
-
-		var params = {
-			dir_id: dir_id
-		};
-
-		$.post("/notes/refreshDir", params, function(result) {
-			data = $.parseJSON(result);
-
-			$("#blocks").append( $("#controls_but") );
-
-			resetEditor();
-			initBreadcrumbs();
-			initDirs();
-			initNotes();
-			initListToAddDir(data.crumbs);
-		});
 	}
 
 	/**
@@ -188,7 +120,7 @@ function NotesPage(data) {
 	function initButtons() {
 		
 		// Кнопка изменить
-		$("#controls .edit").on("click", function() {
+		$("#panel .b_edit_title").on("click", function() {
 			var cur_dir = dirs.getSelected();
 			var cur_note = notes.getSelected();
 			
@@ -211,21 +143,21 @@ function NotesPage(data) {
 		});
 
 		// Кнопка копировать
-		$("#controls .copy").on("click", function() {
+		$("#panel .b_copy").on("click", function() {
 			copy_cut.setAction("copy");
 			copy_cut.add(notes, dirs);
 			$("#controls .paste").removeClass("disabled");
 		});
 
 		// Кнопка вырезать
-		$("#controls .cut").on("click", function() {
+		$("#panel .b_cut").on("click", function() {
 			copy_cut.setAction("cut");
 			copy_cut.add(notes, dirs);
 			$("#controls .paste").removeClass("disabled");
 		});
 		
 		// Кнопка вставить
-		$("#controls .paste").on("click", function() {
+		$("#panel .b_paste").on("click", function() {
 			var options = copy_cut.getOptions();
 			// Так определяем ид родителя
 			options.new_parent_id = data.crumbs[data.crumbs.length - 1].id;
@@ -236,14 +168,14 @@ function NotesPage(data) {
 				var data = $.parseJSON(result);
 				
 				copy_cut.clear();
-				ob.refresh(options.new_parent_id);
+				ob.refresh(null, options.new_parent_id);
 				
 				$("#controls .paste").addClass("disabled");
 			});
 		});
 
 		// Кнопка удалить
-		$("#controls .delete").on("click", function() {
+		$("#panel .b_delete").on("click", function() {
 			var params = {
 				type: "del",
 				notes: notes.getSelected(),
@@ -260,6 +192,63 @@ function NotesPage(data) {
 	}
 	
 	/**
+	 * Обработчик клика по чекбоксу
+	 * @param {Object} el ДОМ элемент по оторому кликнули
+	 * @param {Multiply} ob Текущий элемент
+	 * @param {Object} event Событие
+	 */
+	function selectCheckbox(el, ob, event) {
+		ob.selected = !ob.selected;
+		
+		if(ob.selected) {
+			/*selected_total++;
+			if(selected_total == 1) buttons("show");*/
+			
+			$(el).append($("<div />", {"class": "jackdaw"}));
+			$(el).parent().parent().css("background-color", "#f0f0f0");
+		}
+		else {
+			/*selected_total--;
+			if(selected_total == 0) buttons("hide");*/
+			
+			$(el).empty();
+			$(el).parent().parent().css("background-color", "");
+		}
+		event.stopPropagation();
+	}
+	
+	/**
+	 * Отображает / скрывает кнопки редактирования
+	 * @param {String} act Указатель на дейсвие отображать или скрывать
+	 */
+	function buttons(act) {
+		if(act == "show") {
+			var margin = 45;
+			var step = -1;
+		}
+		else {
+			margin = 0;
+			step = 1;
+		}
+		
+		
+		var descriptor = setInterval( function() {
+			margin += step;
+
+			if(margin < 0 || margin > 45) {
+				clearInterval(descriptor);
+				return;
+			}
+
+			$(".b_edit_title").css("margin-left", margin + "px");
+			$(".b_copy").css("margin-left", margin + "px");
+			$(".b_cut").css("margin-left", margin + "px");
+			$(".b_paste").css("margin-left", margin + "px");
+			$(".b_delete").css("margin-left", margin + "px");
+		}, 5);
+	}
+	
+	/**
 	 * Сбрасывает редактор на состояние по умолчанию
 	 */
 	function resetEditor() {
@@ -271,10 +260,13 @@ function NotesPage(data) {
 	}
 
 	initBreadcrumbs();
-	initTabs();
+	$("#dir_title").html(data.dir_title);
 	initDirs();
 	initNotes();
 	initListToAddDir(data.crumbs);
 
 	initButtons();
 }
+
+// todo: Убрать это отсюда!!!
+//selected_total = 0;

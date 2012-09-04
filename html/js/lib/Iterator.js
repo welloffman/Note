@@ -89,6 +89,34 @@ function ElemIterator() {
 		} while(elem != null);
 		return elems;
 	}
+	
+	/**
+	 * Формирует масив элементов для итератора
+	 * @param {String} type Тип элементов для итератора
+	 * @param {Array} data Массив с данными для элементов
+	 */
+	ob.init = function(type, data) {
+		ob.clear();
+
+		for(var i in data) {
+			var d = factory(type, data[i]);
+			d.render();
+			ob.add(d);
+		}
+	}
+	
+	/**
+	 * Фабрика объектов для итератора
+	 * @param {String} type Тип элементов для итератора
+	 * @param {Array} data Массив с данными для элемента
+	 */
+	function factory(type, data) {
+		if(type == "Dir") return new Dir(data);
+		else if(type == "Note") return new Note(data);
+		else return null;
+	}
+	
+	
 }
 ElemIterator.prototype = new MyIterator();
 
