@@ -24,12 +24,12 @@ function CopyCut() {
 
 		var sel_dirs = dirs.getSelected();
 		for(var i in sel_dirs) {
-			options.dirs.push(sel_dirs[i].getId());
+			options.dirs.push(sel_dirs[i].id);
 		}
 
 		var sel_notes = notes.getSelected();
 		for(i in sel_notes) {
-			options.notes.push(sel_notes[i].getId());
+			options.notes.push(sel_notes[i].id);
 		}
 	}
 	

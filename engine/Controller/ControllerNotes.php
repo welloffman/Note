@@ -62,7 +62,7 @@ class ControllerNotes extends Controller {
 		$notes_data = array();
 		foreach($notes as $note) $notes_data[] = $note->getTitlesData();
 
-		return array("dirs_data" => $dirs_data, "crumbs" => $crumbs, "notes_data"=>$notes_data);
+		return array("dirs_data" => $dirs_data, "crumbs" => $crumbs, "notes_data"=>$notes_data, "dir_title"=>$d->getTitle());
 	}
 
 	/**

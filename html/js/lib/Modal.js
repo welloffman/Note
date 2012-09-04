@@ -22,16 +22,16 @@ function Modal() {
 		$("#customModal .modal_edit .modal-body").append($("<input />", {
 			type: "text",
 			"class": "title_str",
-			value: data.dir.getTitle()
+			value: data.dir.title
 		}));
 
 		// Событие на кнопку сохранить
-		$("#customModal .modal_edit .ok").off("click").on("click", function() {
-			data.dir.setTitle($("#customModal .title_str").val());
-			$.post("/notes/renameDir", {id: data.dir.getId(), title: data.dir.getTitle()}, function(result) {
+		$("#customModal .modal_edit .ok").off("click").on("click", function() { debugger;
+			data.dir.title = $("#customModal .title_str").val();
+			$.post("/notes/renameDir", {id: data.dir.id, title: data.dir.title}, function(result) {
 				$('#customModal').modal('hide');
 				var resp = $.parseJSON(result);
-				if(resp) action(resp);
+				if(resp) action(null, resp);
 			});
 		});
 	}
@@ -48,16 +48,16 @@ function Modal() {
 		$("#customModal .modal_edit .modal-body").append($("<input />", {
 			type: "text",
 			"class": "title_str",
-			value: data.note.getTitle()
+			value: data.note.title
 		}));
 
 		// Событие на кнопку сохранить
 		$("#customModal .modal_edit .ok").off("click").on("click", function() {
-			data.note.setTitle($("#customModal .title_str").val());
-			$.post("/notes/renameNote", {id: data.note.getId(), title: data.note.getTitle()}, function(result) {
+			data.note.title = $("#customModal .title_str").val();
+			$.post("/notes/renameNote", {id: data.note.id, title: data.note.title}, function(result) {
 				$('#customModal').modal('hide');
 				var resp = $.parseJSON(result);
-				if(resp) action(resp);
+				if(resp) action(null, resp);
 			});
 		});
 	}
@@ -74,16 +74,16 @@ function Modal() {
 		var dir_ids = [];
 		for(var i in data.dirs) {
 			var item = data.dirs[i];
-			list_dirs += item.getTitle() + "<br />";
-			dir_ids.push(item.getId());
+			list_dirs += item.title + "<br />";
+			dir_ids.push(item.id);
 		}
 		
 		var list_notes = "";
 		var note_ids = [];
 		for(i in data.notes) {
 			item = data.notes[i];
-			list_notes += item.getTitle() + "<br />";
-			note_ids.push(item.getId());
+			list_notes += item.title + "<br />";
+			note_ids.push(item.id);
 		}
 		
 		var body_message = "";
@@ -97,7 +97,7 @@ function Modal() {
 		$("#customModal .modal_delete .ok").off("click").on("click", function() {
 			$.post("/notes/deleteItem", {dirs: dir_ids, notes: note_ids}, function(result) {
 				$('#customModal').modal('hide');
-				action(data.parent_id);
+				action(null, data.parent_id);
 			});
 		});
 	}
