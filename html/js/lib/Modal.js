@@ -16,22 +16,23 @@ function Modal() {
 	 */
 	var editDirTytle = function(action) {
 		$("#customModal > div").hide();
-		$("#customModal .modal_edit").show();
+		
 		$("#customModal .modal_edit .modal-header h3").html("Изменение заголовка раздела");
 		$("#customModal .modal_edit .modal-body").empty();
 		$("#customModal .modal_edit .modal-body").append($("<input />", {
 			type: "text",
 			"class": "title_str",
-			value: data.dir.title
+			value: data.item.getTitle()
 		}));
+		$("#customModal .modal_edit").show();
 
 		// Событие на кнопку сохранить
-		$("#customModal .modal_edit .ok").off("click").on("click", function() { debugger;
-			data.dir.title = $("#customModal .title_str").val();
-			$.post("/notes/renameDir", {id: data.dir.id, title: data.dir.title}, function(result) {
-				$('#customModal').modal('hide');
+		$("#customModal .modal_edit .ok").off("click").on("click", function() {
+			data.item.setTitle( $("#customModal .title_str").val() );
+			$.post("/notes/renameDir", {id: data.item.getId(), title: data.item.getTitle()}, function(result) {
+				$("#customModal").hide("slow");
 				var resp = $.parseJSON(result);
-				if(resp) action(null, resp);
+				if(resp) action(resp);
 			});
 		});
 	}
@@ -48,16 +49,16 @@ function Modal() {
 		$("#customModal .modal_edit .modal-body").append($("<input />", {
 			type: "text",
 			"class": "title_str",
-			value: data.note.title
+			value: data.item.getTitle()
 		}));
 
 		// Событие на кнопку сохранить
 		$("#customModal .modal_edit .ok").off("click").on("click", function() {
-			data.note.title = $("#customModal .title_str").val();
-			$.post("/notes/renameNote", {id: data.note.id, title: data.note.title}, function(result) {
-				$('#customModal').modal('hide');
+			data.item.setTitle( $("#customModal .title_str").val() );
+			$.post("/notes/renameNote", {id: data.item.getId(), title: data.item.getTitle()}, function(result) {
+				$("#customModal").hide("slow");
 				var resp = $.parseJSON(result);
-				if(resp) action(null, resp);
+				if(resp) action(resp);
 			});
 		});
 	}
@@ -68,22 +69,21 @@ function Modal() {
 	 */
 	var del = function(action) {
 		$("#customModal > div").hide();
-		$("#customModal .modal_delete").show();
 		
 		var list_dirs = "";
-		var dir_ids = [];
-		for(var i in data.dirs) {
-			var item = data.dirs[i];
-			list_dirs += item.title + "<br />";
-			dir_ids.push(item.id);
-		}
-		
 		var list_notes = "";
+		var dir_ids = [];
 		var note_ids = [];
-		for(i in data.notes) {
-			item = data.notes[i];
-			list_notes += item.title + "<br />";
-			note_ids.push(item.id);
+		for(var i in data.del_elems) {
+			var item = data.del_elems[i];
+			if(item.type == "Dir") {
+				list_dirs += item.getTitle() + "<br />";
+				dir_ids.push(item.getId());
+			}
+			else if(item.type == "Note") {
+				list_notes += item.getTitle() + "<br />";
+				note_ids.push(item.getId());
+			}
 		}
 		
 		var body_message = "";
@@ -92,12 +92,13 @@ function Modal() {
 		
 		$("#customModal .modal_delete .modal-body").empty();
 		$("#customModal .modal_delete .modal-body").html(body_message);
+		$("#customModal .modal_delete").show();
 		
 		// Событие на кнопку удалить
 		$("#customModal .modal_delete .ok").off("click").on("click", function() {
 			$.post("/notes/deleteItem", {dirs: dir_ids, notes: note_ids}, function(result) {
-				$('#customModal').modal('hide');
-				action(null, data.parent_id);
+				$("#customModal").hide("slow");
+				action(data.parent_id);
 			});
 		});
 	}
@@ -117,7 +118,8 @@ function Modal() {
 	 */
 	ob.show = function(action) {
 		acceptors[data.type](action);
-		$('#customModal').modal({show: true, keyboard: true});
+		$("#mask").css("height", $("body").height());
+		$("#customModal").show("slow");
 
 	}
 
@@ -127,4 +129,16 @@ function Modal() {
 	ob.setData = function(params) {
 		data = params;
 	}
+	
+	
+	
+	// Событие на кнопку отмена
+	$("#customModal .modal .dismiss").on("click", function() {
+		$("#customModal").hide("slow");
+	});
+	
+	// Событие на кнопку закрыть
+	$("#customModal .modal .close").on("click", function() {
+		$("#customModal").hide("slow");
+	});
 }

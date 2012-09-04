@@ -4,59 +4,58 @@
  */
 function Note(data) {
 	var ob = this;
-
-	ob.dir_id = data.dir_id;
-	ob.content = data.content;
-	ob.open = false;
-	ob.id = data.id;
-	ob.title = data.title;ob.row = null;
-	ob.selected = false;
-	ob.row = makeRow();
 	
-	ob.bindAction(clickNote, ".row_title > p");
-
-	/**
-	 * Выводит запись на страницу
-	 */
-	ob.render = function() {
-		$("#explorer tbody").append(ob.row);
+	var id = data.id;
+	var title = data.title;
+	var selected = false;
+	var row = makeRow();
+	var dir_id = data.dir_id;
+	var content = data.content;
+	var open = false;
+	
+	ob.pos = data.pos === null ? null : data.pos * 1;
+	ob.type = "Note";
+	
+	ob.getId = function() {
+		return id;
 	}
 	
-	/**
-	 * Клик по заголовку записи
-	 */
-	function clickNote() {
-		cancel();
-		show();
-
-		// Кнопка редактора "Отмена"
-		$("#tiny_mce_form input[name='reset']").off("click").on("click", function() {
-			cancel();
-			show();
-		});
-
-		// Кнопка сохранить
-		$("#tiny_mce_form input[name='save']").off("click").on("click", function() {
-			save();
-		});
+	ob.getTitle = function() {
+		return title;
+	}
+	ob.setTitle = function(value) {
+		title = value;
+	}
+	
+	ob.getSelected = function() {
+		return selected;
+	}
+	ob.setSelected = function(val) {
+		selected = val;
 	}
 	
 	/**
 	 * Формирует дом объект - строку для записи
 	 */
 	function makeRow() {
-		var row = $("#tpl_explorer_row tr").clone();
+		var row = $("#tpl_explorer_row li").clone();
 		row.addClass("note_row");
-		row.attr("n_id", ob.id);
-		row.find(".row_title").append("<p>" + ob.title + "</p>");
-		row.find(".sel_check").addClass("note_check");
+		row.attr("n_id", id);
+		row.find(".row_title").append("<p>" + title + "</p>");
 		return row;
+	}
+	
+	/**
+	 * Выводит запись на страницу
+	 */
+	ob.render = function() {
+		$("#explorer").append(row);
 	}
 
 	/**
 	 * Сбрасывает текстовый редактор
 	 */
-	function cancel() {
+	ob.cancel = function() {
 		// Отключаем текстовый редактор
 		tinyMCE.execCommand('mceRemoveControl', false, "mce");
 		// Переносим форму редактора в скрытый блок
@@ -68,58 +67,58 @@ function Note(data) {
 	/**
 	 * Отображает контент записи
 	 */
-	function show() {
-		if(!ob.open) {
-			$.post("/notes/getNoteContent", {id: ob.id}, function(result) {
-				ob.content = $.parseJSON(result);
+	ob.showContent = function() {
+		if(!open) {
+			$.post("/notes/getNoteContent", {id: id}, function(result) {
+				content = $.parseJSON(result);
 
-				var content_row = $("<div class='h'></div>").html(ob.content);
-				content_row.off("dblclick").on("dblclick", function() {
-					onEditMode();
+				var content_row = $("<div class='h'></div>").html(content);
+				content_row.off("dblclick").on("dblclick", function(e) {
+					ob.onEditMode();
 				});
 				
-				ob.row.find(".row_title").append(content_row);
-				ob.row.find(".row_title .h").slideDown("slow");
-				ob.row.addClass("opened");
+				row.find(".row_title").append(content_row);
+				row.find(".row_title .h").slideDown("slow");
+				row.addClass("opened");
 			});
 		}
 		else {
-			ob.row.find(".row_title .h").slideUp("slow", function() {
-				ob.row.find(".h").remove();
-				ob.row.removeClass("opened");
+			row.find(".row_title .h").slideUp("slow", function() {
+				row.find(".h").remove();
+				row.removeClass("opened");
 			});
 		}
 		
-		ob.open = !ob.open;
+		open = !open;
 	}
 
 	/**
 	 * Сохраняет запись
 	 */
-	function save() {
+	 ob.save = function() {
 		tinymce.activeEditor.save();
 		var data = {
-			id: ob.id,
-			parent_dir: ob.dir_id,
-			title: ob.title,
+			id: id,
+			parent_dir: dir_id,
+			title: title,
 			content: $("#mce").val()
 		};
 
 		$.post("/notes/editNote", data, function(result) {
 			var resp = $.parseJSON(result);
 
-			cancel();
-			show();
+			ob.cancel();
+			ob.showContent();
 		});
 	}
 
 	/**
 	 * Отображает редактор контента
 	 */
-	function onEditMode() {
-		var elem = ob.row.find(".h");
+	ob.onEditMode = function() {
+		var elem = row.find(".h");
 		$(elem).off("click");
-		$("#mce").val(ob.content);
+		$("#mce").val(content);
 
 		$(elem).empty();
 		$(elem).append( $("#tiny_mce_form") );
@@ -127,5 +126,3 @@ function Note(data) {
 		tinyMCE.execCommand("mceAddControl", false, "mce");
 	}
 }
-
-Note.prototype = new ListItem();

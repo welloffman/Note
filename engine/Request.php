@@ -75,7 +75,7 @@ class Request {
 	private static function checkArray($array) {
 		foreach($array as $i=>$item) {
 			if(is_array($item)) {
-				$array[$i] = $this->checkArray($item);
+				$array[$i] = self::checkArray($item);
 			}
 			else $array[$i] = trim(strip_tags($item));
 		}

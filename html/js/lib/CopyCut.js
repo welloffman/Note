@@ -15,21 +15,16 @@ function CopyCut() {
 	
 	/**
 	 * Заполняет параметры значениями id записей и разделов
-	 * @param {ElemIterator} notes Объект - итератор записей
-	 * @param {ElemIterator} dirs Объект - итератор разделов
+	 * @param {ElemIterator} elems Объект - итератор записей и разделов
 	 */
-	ob.add = function(notes, dirs) {
+	ob.setOptions = function(elems) {
 		options.dirs = [];
 		options.notes = [];
 
-		var sel_dirs = dirs.getSelected();
-		for(var i in sel_dirs) {
-			options.dirs.push(sel_dirs[i].id);
-		}
-
-		var sel_notes = notes.getSelected();
-		for(i in sel_notes) {
-			options.notes.push(sel_notes[i].id);
+		var sel_items = elems.getSelected();
+		for(var i in sel_items) {
+			if(sel_items[i].type == "Dir") options.dirs.push(sel_items[i].getId());
+			else if(sel_items[i].type == "Note") options.notes.push(sel_items[i].getId());
 		}
 	}
 	
@@ -55,5 +50,9 @@ function CopyCut() {
 	
 	ob.getAction = function() {
 		return action;
+	}
+	
+	ob.count = function() {
+		return options.dirs.length + options.notes.length;
 	}
 }

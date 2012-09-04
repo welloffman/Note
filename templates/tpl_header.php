@@ -3,9 +3,8 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-responsive.css">
-		<link rel="stylesheet" type="text/css" href="/css/note_style.css" />
+		<?php $this->buildCss(); ?>
 		<script src="/js/jquery_min.js"></script>
+		<script src="/js/jquery-ui-1.8.23.custom.min.js"></script>
 	</head>
 		<body>

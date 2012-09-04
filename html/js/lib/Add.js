@@ -14,7 +14,7 @@ function Add() {
 		var content = $( "#" + this.control.attr("tab_content") );
 		content.parent().children().hide();
 		
-		if(update) refresh(null, $("#parent_dir_name").val());
+		if(update) refresh( $("#parent_dir_name").val() );
 		
 		content.parent().children().first().show();
 		
@@ -47,13 +47,11 @@ function Add() {
 /**
  * Класс для добавления раздела
  * @param {Jquery Object} elem Кнопка по которой будет выводиться интерфейс для добавления раздела
- * @param {ElemIterator} dirs Объект с уже загруженными разделами
  */
-function AddDir(elem, dirs) { 
+function AddDir(elem) { 
 	var ob = this;
 	
 	ob.control = elem;
-	ob.items = dirs;
 	
 	ob.init = function() {};
 	

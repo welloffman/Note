@@ -52,6 +52,11 @@ class ModelDir extends ModelOrm {
 		foreach($direct_child_dirs as $d) {
 			$d->delete();
 		}
+		
+		// Удаляем запись из таблицы с позицией
+		$pos = $mapper->find( "ModelPosition", array('item_id'=>$this->id, 'item_type'=>'dir'), array("options" => "LIMIT 1") );
+		if(isset($pos[0])) $pos[0]->delete();
+		
 
 		parent::delete();
 	}
@@ -220,6 +225,16 @@ class ModelDir extends ModelOrm {
 		$this->setUser_id($source->getUser_id());
 		$this->setPath($source->getPath());
 		$this->setTitle($source->getTitle());
+	}
+	
+	/**
+	 * Возвращает позицию раздела на страници 
+	 */
+	public function getPos() {
+		$mapper = new ModelMapper();
+		$result = $mapper->find( "ModelPosition", array('item_id'=>$this->id, 'item_type'=>'dir'), array("options" => "LIMIT 1") );
+		if(isset($result[0])) return $result[0]->getPos();
+		else return null;
 	}
 }
 

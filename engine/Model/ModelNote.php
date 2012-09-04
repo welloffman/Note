@@ -73,6 +73,25 @@ class ModelNote extends ModelOrm {
 		$this->setTitle($source->getTitle());
 		$this->setContent($source->getContent());
 	}
+	
+	/**
+	 * Возвращает позицию записи на страници 
+	 */
+	public function getPos() {
+		$mapper = new ModelMapper();
+		$result = $mapper->find( "ModelPosition", array('item_id'=>$this->id, 'item_type'=>'note'), array("options" => "LIMIT 1") );
+		if(isset($result[0])) return $result[0]->getPos();
+		else return null;
+	}
+	
+	public function delete() {
+		// Удаляем запись из таблицы с позицией
+		$mapper = new ModelMapper();
+		$pos = $mapper->find( "ModelPosition", array('item_id'=>$this->id, 'item_type'=>'note'), array("options" => "LIMIT 1") );
+		if(isset($pos[0])) $pos[0]->delete();
+		
+		parent::delete();
+	}
 }
 
 ?>

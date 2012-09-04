@@ -1,15 +1,16 @@
 <div class="container">
-	<div class="row">
-		<div class="span12">
-			<form class="log_form well" method="post" action="/auth/login">
-				<h2>Авторизация</h2>
-				<p>Логин</p>
-				<input class="input-xlarge" type="text" name="login" placeholder="Логин" />
-				<p>Пароль</p>
-				<input class="input-xlarge" type="password" name="passwd" placeholder="Пароль" />
-				<br />
-				<input type="submit" class="btn" value="Вход" />
-			</form>
-		</div>
-	</div>
+	<form method="post" action="/auth/login" class="login">
+		<p>
+			<label for="login">Логин:</label>
+			<input type="text" name="login" id="login" placeholder="Логин">
+		</p>
+		<p>
+			<label for="password">Пароль:</label>
+			<input type="password" name="passwd" id="password" placeholder="Пароль">
+		</p>
+		<p class="login-submit">
+			<button type="submit" class="login-button">Вход</button>
+		</p>
+		<p class="forgot-password"><a href="">Забыли пароль?</a></p>
+	</form>
 </div>

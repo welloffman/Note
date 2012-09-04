@@ -23,9 +23,8 @@
 		<div>
 			<!-- Список разделов и записей -->
 			<div id="tab_notes" class="table_container">					
-				<table id="explorer">
-					<tbody></tbody>
-				</table>
+				<ul id="explorer">
+				</ul>
 			</div>
 
 			<!-- Добавление нового раздела -->
@@ -112,13 +111,12 @@
 	</form>
 	
 	<!-- Шаблон строки раздела или записи -->
-	<table id="tpl_explorer_row">
-		<tr>
-			<td class="row_title"></td>
-			<td class="check_cell">
-				<div class="sel_check"></div>
-			</td>
-		</tr>
+	<ul id="tpl_explorer_row">
+		<li>
+			<div class="dragable"></div>
+			<div class="row_title"></div>
+			<div class="sel_check"></div>
+		</li>
 	</table>
 </div>
 
@@ -131,6 +129,5 @@
 <script src="/js/lib/Add.js"></script>
 <script src="/js/lib/Iterator.js"></script>
 <script src="/js/lib/Breadcrumbs.js"></script>
-<script src="/js/lib/Tab.js"></script>
 <script src="/js/lib/tiny_mce/tiny_mce.js"></script>
 <script src="/js/notes_page.js"></script>
