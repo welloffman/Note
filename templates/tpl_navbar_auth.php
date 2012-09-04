@@ -1,8 +1,9 @@
 <div id="header">
-	<div id="line"></div>
-	<ul id="nav_menu">
-		<li><a href="/notes">Блокнот</a></li>
-		<li><a href="/settings">Настройки</a></li>
-		<li><a href="/auth/logout">Выход</a></li>
-	</ul>
+	<nav class="container">
+		<ul class="nav">
+			<li><a href="/notes" class="nav-icon" title="Блокнот"><span class="icon-home"></span> Блокнот</a></li>
+			<li><a href="/settings" title="Настройки">Настройки</a></li>
+			<li><a href="/auth/logout" title="Выход">Выход</a></li>
+		</ul>
+	</nav>
 </div>

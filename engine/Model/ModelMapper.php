@@ -21,7 +21,8 @@ class ModelMapper {
     private $map = array(
         'user' => array('id', 'login', 'password', 'created', 'email'),
         'dir' => array('id', 'user_id', 'path', 'title'),
-        'note' => array('id', 'dir_id', 'title', 'content')
+        'note' => array('id', 'dir_id', 'title', 'content'),
+		'position' => array('id', 'item_id', 'item_type', 'pos'),
     );
     
     

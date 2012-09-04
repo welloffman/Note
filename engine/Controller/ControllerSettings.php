@@ -22,6 +22,10 @@ class ControllerSettings extends Controller {
 		$this->type_template = "fullPage";
 		$this->template[] = "tpl_navbar_auth.php";
 		$this->template[] = "tpl_settings.php";
+		$this->css_file[] = "/css/reset.css";
+		$this->css_file[] = "/css/main_style.css";
+		$this->css_file[] = "/css/dark_navbar.css";
+		$this->css_file[] = "/css/settings_style.css";
 		
 		return array('login'=>$user->getLogin(), 'email'=>$user->getEmail());
 	}

@@ -1,16 +1,20 @@
 <div class="container">
-	<div class="row">
-		<div class="span12">
-			<form class="log_form well" method="post" action="/register/reg">
-				<h2>Регистрация</h2>
-				<p>Введите логин - рекомендуется в качестве логина использовать адрес электронной почты.</p>
-				<input class="input-xlarge" type="text" name="login" placeholder="Логин" />
-				<p>Введите пароль - от 6 до 20 символов</p>
-				<input class="input-xlarge" type="text" name="passwd" placeholder="Пароль" />
-				<br />
-				<input type="button" class="btn" value="Отправить" />
-			</form>
+	<form method="post" action="/register/reg" class="login">
+		<p>
+			<label for="login">Логин:</label>
+			<input type="text" name="login" id="login" placeholder="Логин">
+		</p>
+		<p>
+			<label for="password">Пароль:</label>
+			<input type="password" name="passwd" id="password" placeholder="Пароль">
+		</p>
+		<p class="login-submit">
+			<button type="submit" class="login-button">Отправить</button>
+		</p>
+		<div class="tip">
+			<p>Рекомендуется в качестве логина использовать адрес электронной почты для возможности восстановления забытого пароля.</p>
+			<p>Длинна пароля от 6 до 20 символов.</p>
 		</div>
-	</div>
+	</form>
 </div>
 <script src="/js/register.js"></script>

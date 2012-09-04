@@ -1,0 +1,54 @@
+#json_block {
+	display: none;
+}
+
+.container {
+	text-align: center;
+}
+
+.control-label {
+	color: #a8a7a8;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+	width: 150px;
+}
+
+.help-block {
+	color: #a8a7a8;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+	padding-left: 150px;
+	padding-top: 5px;
+}
+
+.title-block {
+	color: #a8a7a8;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+	padding-top: 40px;
+	padding-bottom: 5px;
+	font-weight: bold;
+	font-size: 14pt;
+	text-align: center;
+	margin-left: -35px;
+}
+
+.form-horizontal {
+	display: inline-block;
+	width: 625px;
+	text-align: left;
+	padding-top: 25px;
+	padding-left: 35px;
+}
+
+.control-group {
+	padding-top: 20px;
+}
+
+.help-inline {
+	padding-left: 5px;
+	color: #ee0000;
+	text-shadow: 1px 1px 0 rgba(50, 0, 0, 0.8);
+}
+
+.form-actions {
+	padding-left: 151px;
+	padding-top: 15px;
+}

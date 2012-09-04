@@ -17,7 +17,8 @@ class ControllerNotes extends Controller {
 		"renameDir" => "authRequired",
 		"renameNote" => "authRequired",
 		"copy" => "authRequired",
-		"cut" => "authRequired"
+		"cut" => "authRequired",
+		"sort" => "authRequired"
 	);
 
 	/**
@@ -34,6 +35,12 @@ class ControllerNotes extends Controller {
 		$this->template[] = "tpl_navbar_auth.php";
 		$this->template[] = "tpl_notes.php";
 		$this->template[] = "tpl_modal_window.php";
+		
+		//$this->css_file[] = "/bootstrap/css/bootstrap.css";
+		//$this->css_file[] = "/bootstrap/css/bootstrap-responsive.css";
+		$this->css_file[] = "/css/reset.css";
+		$this->css_file[] = "/css/note_style.css";
+		$this->css_file[] = "/css/dark_navbar.css";
 		
 		return $dirs_data;
 	}
@@ -55,12 +62,16 @@ class ControllerNotes extends Controller {
 		// Получаем дочерние разделы
 		$cur_dirs = $d->getChildDirs();
 		$dirs_data = array();
-		foreach($cur_dirs as $dir) $dirs_data[] = $dir->getAllVars();
+		foreach($cur_dirs as $dir) {
+			$dirs_data[] = array_merge( $dir->getAllVars(), array("pos"=>$dir->getPos()) );
+		}
 
 		// Получаем дочерние записи
 		$notes = $d->getChildNotes();
 		$notes_data = array();
-		foreach($notes as $note) $notes_data[] = $note->getTitlesData();
+		foreach($notes as $note) {
+			$notes_data[] = array_merge( $note->getTitlesData(), array("pos"=>$note->getPos()) );
+		}
 
 		return array("dirs_data" => $dirs_data, "crumbs" => $crumbs, "notes_data"=>$notes_data, "dir_title"=>$d->getTitle());
 	}
@@ -232,5 +243,25 @@ class ControllerNotes extends Controller {
 			}
 		}
 		return array();
+	}
+	
+	/**
+	 * Производит сортировку разделов и записей 
+	 */
+	protected function sort() {
+		$sort_data = Request::getPost("sort_data");
+		if(!is_array($sort_data)) $sort_data = array();
+		
+		foreach ($sort_data as $position) {
+			$pos = new ModelPosition();
+			
+			if( $pos->init($position['id'], str_replace("_row", "", $position["type"])) 
+					&& $pos->getPos() === $position['pos'] ) continue;
+			
+			$pos->setItem_id($position['id']);
+			$pos->setItem_type(str_replace("_row", "", $position["type"]));
+			$pos->setPos($position['pos']);
+			$pos->save();
+		}
 	}
 }

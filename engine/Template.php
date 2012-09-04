@@ -8,6 +8,7 @@
 class Template {
 	private $tpl = array();
 	private $json_data;
+	private $css = array();
 	
 	/**
 	 * Сохраняет данные, которые нужно передать с шаблоном клиенту
@@ -24,6 +25,14 @@ class Template {
 	public function addTpl($tpl) {
 		$filename = "../templates/" . $tpl; 
 		if(is_file($filename)) $this->tpl[] = $filename;
+	}
+	
+	public function addCss($css_file) {
+		$this->css[] = '<link rel="stylesheet" type="text/css" href="' . $css_file . '" />';
+	}
+	
+	public function buildCss() {
+		foreach($this->css as $css) echo $css . "\n";
 	}
 	
 	/**
