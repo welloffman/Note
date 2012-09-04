@@ -12,6 +12,8 @@ class Controller {
 	 */
 	protected $template = array();
 	
+	protected $css_file = array();
+	
 	/**
 	 * Тип шаблона (целая страница, часть страницы или просто json - данные)
 	 * @var string ("fullPage", "jsonData", "block")
@@ -49,6 +51,9 @@ class Controller {
 		$template = new Template($result);
 		foreach($this->template as $tpl) {
 			$template->addTpl($tpl);
+		} 
+		foreach($this->css_file as $css) {
+			$template->addCss($css);
 		}
 		$template->show($this->type_template);
 	}
@@ -68,6 +73,9 @@ class Controller {
 			$this->type_template = "fullPage";
 			$this->template[] = "tpl_navbar.php";
 			$this->template[] = "tpl_main_view.php";
+			$this->css_file[] = "/css/reset.css";
+			$this->css_file[] = "/css/main_style.css";
+			$this->css_file[] = "/css/dark_navbar.css";
 			return null;
 		}
 	}

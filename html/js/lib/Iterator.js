@@ -1,8 +1,7 @@
 /**
  * Класс - итератор для объектов
  */
-function MyIterator() {
-	var ob = this;
+function Iterator() {
 
 	/**
 	 * Добавляет элемент в конец массива данных итератора и ставит на него указатель
@@ -62,8 +61,11 @@ function MyIterator() {
 function ElemIterator() {
 	var ob = this;
 
+	var sort_by = "custom";
+
 	ob.data = [];
 	ob.current = null;
+	
 
 	/**
 	 * Возвращает элемент по id
@@ -71,7 +73,21 @@ function ElemIterator() {
 	 */
 	ob.getById = function(id) {
 		for(var i in ob.data) {
-			if(ob.data[i].getId() == id) return ob.data[i];
+			if(ob.data[i].id == id) return ob.data[i];
+		}
+		return null;
+	}
+	
+	/**
+	 * Возвращает элемент по id и типу
+	 * @param {Integer} id
+	 * @param {String} type
+	 */
+	ob.getItem = function(id, type) {
+		for(var i in ob.data) {
+			var item = ob.data[i];
+			if(item.getId() == id && item.type.toLowerCase() == type.toLowerCase()) 
+				return ob.data[i];
 		}
 		return null;
 	}
@@ -85,7 +101,7 @@ function ElemIterator() {
 		ob.reset();
 		do {
 			var elem = ob.get();
-			if(elem && elem.isSelect()) elems.push(elem);
+			if(elem && elem.getSelected()) elems.push(elem);
 		} while(elem != null);
 		return elems;
 	}
@@ -105,6 +121,56 @@ function ElemIterator() {
 		}
 	}
 	
+	ob.sort = function() {
+		if(sort_by == "tytle") sortByTytle();
+		else if(sort_by =="type") sortByType();
+		else {
+			
+			var no_pos = [];
+			var with_pos = [];
+			for(var i in ob.data) {
+				var item = ob.data[i];
+				if(item.pos === null) no_pos.push(item);
+				else with_pos.push(item);
+			}
+			ob.data = with_pos;
+			
+			if(ob.data.length > 0) sortByPos(ob.data, 0, with_pos.length - 1);
+			ob.data = ob.data.concat(no_pos);
+		}
+	}
+	
+	function sortByTytle() {
+		
+	}
+	
+	function sortByType() {
+		
+	}
+	
+	/**
+	 * Сортирует записи и разделы методом быстрой сортировки по позиции
+	 */
+	function sortByPos(arr, low_index, high_index) {
+		var i = low_index;
+		var j = high_index;
+		var middle = Math.floor((low_index + high_index) / 2);
+		var x = ob.data[middle].pos;
+		do {
+			while(ob.data[i].pos < x) ++i;
+			while(ob.data[j].pos > x) --j;
+			if(i <= j){
+				var temp = ob.data[i];
+				ob.data[i] = ob.data[j];
+				ob.data[j] = temp;
+				i++; j--;
+			}
+		} while(i <= j);
+
+		if(low_index < j) sortByPos(arr, low_index, j);
+		if(i < high_index) sortByPos(arr, i, high_index);
+	}
+	
 	/**
 	 * Фабрика объектов для итератора
 	 * @param {String} type Тип элементов для итератора
@@ -118,26 +184,4 @@ function ElemIterator() {
 	
 	
 }
-ElemIterator.prototype = new MyIterator();
-
-/**
- * Класс - итератор табов
- */
-function TabsIterator() {
-	var ob = this;
-
-	ob.data = [];
-	ob.current = null;
-
-	/**
-	 * Возвращает таб по цсс идентификатору
-	 * @param {String} id - цсс идентификатор
-	 */
-	ob.getById = function(id) {
-		for(var i in ob.data) {
-			if( $(ob.data[i].getElem()).attr("id") == id ) return ob.data[i];
-		}
-		return null;
-	}
-}
-TabsIterator.prototype = new MyIterator();
+ElemIterator.prototype = new Iterator();

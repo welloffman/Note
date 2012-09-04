@@ -1,29 +1,30 @@
 <!-- Модальное окно -->
-<div class="modal hide fade" id="customModal">
-	<div class="modal_edit">
+<div id="customModal">
+	<span id="mask"></span>
+	<div class="modal modal_edit">
 		<div class="modal-header">
-			<button class="close" data-dismiss="modal">×</button>
+			<button class="close">×</button>
 			<h3>Modal header</h3>
 		</div>
 		<div class="modal-body">
 			<p>One fine body…</p>
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Отмена</a>
-			<a href="#" class="btn btn-primary ok">Сохранить</a>
+			<button class="btn dismiss">Отмена</button>
+			<button class="btn ok">Сохранить</button>
 		</div>
 	</div>
-	<div class="modal_delete">
+	<div class="modal modal_delete">
 		<div class="modal-header">
-			<button class="close" data-dismiss="modal">×</button>
+			<button class="close">×</button>
 			<h3>Подтверждение удаления</h3>
 		</div>
 		<div class="modal-body">
 			<p>Будет произведено удаление!</p>
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Отмена</a>
-			<a href="#" class="btn btn-danger btn-primary ok">Удалить</a>
+			<button class="btn dismiss">Отмена</button>
+			<button class="btn ok">Удалить</button>
 		</div>
 	</div>
 </div>
