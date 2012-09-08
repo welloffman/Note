@@ -66,6 +66,10 @@ body {
 	border-radius: 8px;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
+	
+	box-shadow: -3px 3px 5px -1px #222;
+	-moz-box-shadow: -3px 3px 5px -1px #222;
+	-webkit-box-shadow: -3px 3px 5px -1px #222;
 }
 
 #sidebar {
@@ -83,48 +87,95 @@ body {
 	list-style: none;
 	height: 61px;
 	margin: 5px 0;
-	background-position: 0 0;
+	background-color: #999999;
+	background-repeat: no-repeat;
+	
+	border-top-left-radius: 8px;
+	-webkit-border-top-left-radius: 8px;
+	-moz-border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+	-webkit-border-bottom-left-radius: 8px;
+	-moz-border-bottom-left-radius: 8px;
+	
+	box-shadow: inset -3px 0 5px -1px #797979;
+	-moz-box-shadow: inset -3px 0 5px -1px #797979;
+	-webkit-box-shadow: inset -3px 0 5px -1px #797979;
 }
-/*#panel li:hover {
-	background-position: 0 122px;
-}*/
 #panel li:hover {
-	background-position: 0 61px;
+	background-color: #a5a5a5
+}
+
+#panel .b_note {
+	background-color: #fac632;
+	background-image: url(/img/icon_list.png);
+	background-position: 12px 35px;
+	height: 91px;
+	
+	box-shadow: inset -3px 0 5px -1px #e2a31e;
+	-moz-box-shadow: inset -3px 0 5px -1px #e2a31e;
+	-webkit-box-shadow: inset -3px 0 5px -1px #e2a31e;
+}
+#panel .b_note:hover {
+	background-color: #ffce41;
 }
 
 #panel .b_add_dir {
-	background-image: url(/img/but_add_dir.png);
+	background-color: #aade31;
+	background-image: url(/img/icon_plus.png);
+	background-position: 12px 33px;
 	height: 91px;
+	
+	box-shadow: inset -3px 0 5px -1px #95c12a;
+	-moz-box-shadow: inset -3px 0 5px -1px #95c12a;
+	-webkit-box-shadow: inset -3px 0 5px -1px #95c12a;
 }
+#panel .b_add_dir:hover {
+	background-color: #b1e833;
+}
+
 #panel .b_add_note {
-	background-image: url(/img/but_add_note.png);
+	background-color: #32acef;
+	background-image: url(/img/icon_plus.png);
+	background-position: 12px 33px; 
 	height: 91px;
+	margin-bottom: 25px;
+	
+	box-shadow: inset -3px 0 5px -1px #1b86c6;
+	-moz-box-shadow: inset -3px 0 5px -1px #1b86c6;
+	-webkit-box-shadow: inset -3px 0 5px -1px #1b86c6;
 }
-/*#panel .b_add_dir:hover, #panel .b_add_note:hover {
-	background-position: 0 182px;
-}*/
-#panel .b_add_dir:hover, #panel .b_add_note:hover {
-	background-position: 0 91px;
+#panel .b_add_note:hover {
+	background-color: #35b8ff;
 }
-#panel .b_order {
-	background-image: url(/img/but_sort.png);
-	margin: 25px 0;
-}
+
 #panel .b_edit_title {
-	background-image: url(/img/but_edit_title.png);
+	background-image: url(/img/icon_pencil.png); 
+	background-position: 12px 19px;
 }
 #panel .b_copy {
-	background-image: url(/img/but_copy.png);
+	background-image: url(/img/icon_copy.png);
+	background-position: 8px 16px;
 }
 #panel .b_cut {
-	background-image: url(/img/but_cut.png);
+	background-image: url(/img/icon_cut.png);
+	background-position: 12px 13px;
 }
 #panel .b_paste {
-	background-image: url(/img/but_paste.png);
+	background-image: url(/img/icon_paste.png);
+	background-position: 11px 15px;
 }
 #panel .b_delete {
-	background-image: url(/img/but_delete.png);
+	background-image: url(/img/icon_bucket.png);
+	background-color: #f0311e;
+	background-position: 14px 17px;
 	margin-top: 25px;
+	
+	box-shadow: inset -3px 0 5px -1px #9e0903;
+	-moz-box-shadow: inset -3px 0 5px -1px #9e0903;
+	-webkit-box-shadow: inset -3px 0 5px -1px #9e0903;
+}
+#panel .b_delete:hover {
+	background-color: #ff3320;
 }
 
 #title_begin {

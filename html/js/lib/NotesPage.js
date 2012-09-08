@@ -344,4 +344,11 @@ function NotesPage(data) {
 			modal.show(refresh);
 		}
 	});
+	
+	// Клик по табу блокнот
+	$(".b_note").on("click", function() {
+		var content = $( "#" + $(this).attr("tab_content") );
+		content.parent().children().hide();
+		content.parent().children().first().show();
+	});
 }

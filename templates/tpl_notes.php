@@ -1,14 +1,14 @@
 <div id="container">
 	<div id="sidebar">
 		<ul id="panel">
+			<li class="b_note" tab_content="tab_notes" title="Блокнот"></li>
 			<li class="b_add_dir" tab_content="tab_add_dir" title="Добавить раздел"></li>
 			<li class="b_add_note" tab_content="tab_add_note" title="Добавить запись"></li>
-			<li class="b_order"></li>
-			<li class="b_edit_title"></li>
-			<li class="b_copy"></li>
-			<li class="b_cut"></li>
-			<li class="b_paste"></li>
-			<li class="b_delete"></li>
+			<li class="b_edit_title" title="Изменить заголовок"></li>
+			<li class="b_copy" title="Копировать"></li>
+			<li class="b_cut" title="Вырезать"></li>
+			<li class="b_paste" title="Вставить"></li>
+			<li class="b_delete" title="Удалить"></li>
 		</ul>
 	</div>
 	<div id="content">
