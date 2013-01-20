@@ -40,11 +40,10 @@ class Router {
 	 */
 	private function getUriData() {
 		$uri_data = preg_split('/\//', $_SERVER['REQUEST_URI'], 3, PREG_SPLIT_NO_EMPTY);
-		$count = count($uri_data);
 
 		$data = array();
-		$data["area"] = $count > 0 ? Request::getVar($uri_data[0]) : "notes";
-		$data["action"] = $count > 1 ? Request::getVar($uri_data[1]) : "";
+		$data["area"] = isset($uri_data[0]) ? Request::getVar($uri_data[0]) : "notes";
+		$data["action"] = isset($uri_data[1]) ? Request::getVar($uri_data[1]) : "";
 		return $data; 
 	}
 }

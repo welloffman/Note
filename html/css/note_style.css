@@ -193,6 +193,7 @@ body {
 	height: 36px;
 	background-image: url(/img/dir_fon_right.png);
 	display: inline-block;
+	margin-left: -38px;
 }
 #dir_title {
 	background-image: url(/img/dir_fon_center.png);
@@ -204,6 +205,10 @@ body {
 	padding-top: 6px;
 	display: inline-block;
 	vertical-align: top;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width: 1050px;
+	margin-right: 38px;
 	
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -288,6 +293,10 @@ body {
 	margin: 0;
 	font-size: 11pt;
 	line-height: 40px;
+	max-width: 100%;
+	overflow: hidden;
+	height: 40px;
+	white-space: nowrap;
 }
 #explorer .dir_row p {
 	font-weight: bold;
@@ -295,6 +304,10 @@ body {
 
 #explorer li.opened {
 	height: auto;
+}
+
+#explorer .row_title .h p {
+	white-space: normal;
 }
 
 .dragable {
@@ -362,6 +375,7 @@ fieldset {
 	border-top: 1px solid gray;
 	cursor: default;
 	display: none;
+	word-wrap: break-word;
 }
 #explorer .row_title .h p {
 	line-height: normal;
