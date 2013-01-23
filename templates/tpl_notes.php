@@ -1,14 +1,14 @@
 <div id="container">
 	<div id="sidebar">
 		<ul id="panel">
+			<li class="b_note" tab_content="tab_notes" title="Блокнот"></li>
 			<li class="b_add_dir" tab_content="tab_add_dir" title="Добавить раздел"></li>
 			<li class="b_add_note" tab_content="tab_add_note" title="Добавить запись"></li>
-			<li class="b_order"></li>
-			<li class="b_edit_title"></li>
-			<li class="b_copy"></li>
-			<li class="b_cut"></li>
-			<li class="b_paste"></li>
-			<li class="b_delete"></li>
+			<li class="b_edit_title" title="Изменить заголовок"></li>
+			<li class="b_copy" title="Копировать"></li>
+			<li class="b_cut" title="Вырезать"></li>
+			<li class="b_paste" title="Вставить"></li>
+			<li class="b_delete" title="Удалить"></li>
 		</ul>
 	</div>
 	<div id="content">
@@ -31,24 +31,22 @@
 			<div id="tab_add_dir">
 				<form class="form-horizontal">
 					<fieldset>
-                        <legend>Новый раздел</legend>
+                        <legend>Создание нового раздела</legend>
 						<div class="control-group">
-							<label class="control-label">Родительский раздел</label>
+							<p class="help-block">Выберите раздел, в котором хотите создать новый</p>
 							<div class="controls">
-								<select class="input-xlarge" id="parent_dir_name">
+								<select class="input-large" id="parent_dir_name">
 								</select>
-								<p class="help-block">Выберите раздел, в котором хотите создать новый</p>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">Название раздела</label>
+							<p class="help-block">Введите название для нового раздела</p>
 							<div class="controls">
-								<input type="text" class="input-xlarge" name="dir_name" />
-								<p class="help-block">Введите название для нового раздела</p>
+								<input type="text" class="input-large" name="dir_name" />
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="button" class="btn btn-primary" id="create_dir">Создать</button>
+							<button type="button" class="btn" id="create_dir">Создать</button>
 							<button type="button" class="btn cancel">Отмена</button>
 						</div>
 					</fieldset>
@@ -61,26 +59,27 @@
 					<fieldset>
                         <legend>Новая запись</legend>
 						<div class="control-group">
-							<label class="control-label">Родительский раздел</label>
+							<p class="help-block">Выберите раздел, в котором хотите создать запись</p>
 							<div class="controls">
-								<select class="input-xlarge" id="parent_dir_name2">
+								<select class="input-large" id="parent_dir_name2">
 								</select>
-								<p class="help-block">Выберите раздел, в котором хотите создать запись</p>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">Заголовок записи</label>
+							<p class="help-block">Введите название новой записи</p>
 							<div class="controls">
-								<input type="text" class="input-xlarge" name="note_name" />
-								<p class="help-block">Введите название новой записи</p>
+								<input type="text" class="input-large" name="note_name" />
 							</div>
 						</div>
 						<div class="control-group">
+							<input type="button" class="btn save_note" value="Сохранить" />
+							<button type="button" class="btn cancel">Отмена</button>
+							<br /><br />
 							<label class="control-label">Текст записи</label>
 							<div class="controls">
 								<textarea id="mce2" name="content"></textarea>
 								<br />
-								<input class="btn" type="button" id="save_note_button" value="Сохранить" />
+								<input type="button" class="btn save_note" value="Сохранить" />
 								<button type="button" class="btn cancel">Отмена</button>
 							</div>
 						</div>

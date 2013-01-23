@@ -100,7 +100,7 @@ function AddNote(elem) {
 	ob.bindAction();
 	
 	// Кнопка добавить запись
-	$("#save_note_button").off('click').on('click', function() {
+	$("#tab_add_note .save_note").off('click').on('click', function() {
 		tinymce.activeEditor.save();
 		var params = {
 			parent_dir: $("#parent_dir_name2").val(),
