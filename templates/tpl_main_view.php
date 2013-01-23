@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="span12">
-			General page
+			<h2 class="main_title">Просто блокнот для повседневных заметок.</h2>
 		</div>
 	</div>
 </div>
