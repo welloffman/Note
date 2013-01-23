@@ -21,7 +21,7 @@ function Modal() {
 		$("#customModal .modal_edit .modal-body").empty();
 		$("#customModal .modal_edit .modal-body").append($("<input />", {
 			type: "text",
-			"class": "title_str",
+			"class": "input-large title_str",
 			value: data.item.getTitle()
 		}));
 		$("#customModal .modal_edit").show();
