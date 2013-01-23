@@ -289,13 +289,15 @@ body {
 	padding-left: 40px;
 	padding-right: 46px;
 }
+#explorer .row_title > p {
+	height: 40px;
+}
 #explorer .row_title p {
 	margin: 0;
 	font-size: 11pt;
 	line-height: 40px;
 	max-width: 100%;
 	overflow: hidden;
-	height: 40px;
 	white-space: nowrap;
 }
 #explorer .dir_row p {
